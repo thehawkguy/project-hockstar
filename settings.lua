@@ -21,7 +21,8 @@ function SettingsClass:new()
     self.Player1Speed = 500
     self.Player2Speed = 500
     self.PuckXSpeed = 0
-    self.PuckYSpeed = 3
+    self.PuckYSpeed = 200
+    self.PuckAcc = 50
 
 end
 

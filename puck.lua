@@ -6,15 +6,23 @@ function Puck:new(x, y, speed)
     Puck.super.new(self, x, y, speed)
     self.image = Settings.PuckImage
     self.direction = math.random(2)
+    self.angle = math.pi / 2
+    self.sin = math.sin(self.angle)
+    self.cos = math.cos(self.angle)
+
 end
 
 function Puck:update(dt)
     -- body
-    if self.direction == 1 then
-        self.y = self.y + self.speed
-    else
-        self.y = self.y - self.speed
-    end
+    -- if self.direction == 1 then
+    --     self.y = self.y + self.speed * dt
+    -- else
+    --     self.y = self.y - self.speed * dt
+    -- end
+
+    self.x = self.x + self.speed * self.cos * dt
+    self.y = self.y + self.speed * self.sin * dt
+
 end
 
 function Puck:checkCollision(obj)
@@ -34,12 +42,17 @@ function Puck:checkCollision(obj)
     self_bottom > obj_top and
     self_top < obj_bottom then
 
-        self.speed = self.speed + 1
-        if self.direction == 1 then
-            self.direction = 2
-        else
-            self.direction = 1
-        end
+        self.speed = self.speed + Settings.PuckAcc
+
+        self.angle = math.atan2(self.y - obj.midY, self.x - obj.midX)
+        self.sin = math.sin(self.angle)
+        self.cos = math.cos(self.angle)
+
+        -- if self.direction == 1 then
+        --     self.direction = 2
+        -- else
+        --     self.direction = 1
+        -- end
     end
 
 end
