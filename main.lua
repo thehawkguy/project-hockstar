@@ -20,7 +20,9 @@ function love.load()
     player2 = Player(Settings.Player2X, Settings.Player2Y, Settings.Player2Speed, 2)
     player1.image = Settings.Player1Image
     player2.image = Settings.Player2Image
-    puck = Puck(Settings.PuckX, Settings.PuckY, Settings.PuckYSpeed)
+    flipCoin = math.random(0, 2)
+    puck = Puck(Settings.PuckX, Settings.PuckY, Settings.PuckSpeed)
+
 end
 
 function love.update(dt)
@@ -32,6 +34,7 @@ function love.update(dt)
 
         puck:checkCollision(player1)
         puck:checkCollision(player2)
+        puck:checkCollisionScreen()
     end
 end
 
@@ -41,5 +44,6 @@ function love.draw()
     player2:draw()
     puck:draw()
 
-    love.graphics.print(puck.direction, 10, 50)
+    love.graphics.print(flipCoin, 10, 50)
+    love.graphics.print(puck.angle, 10, 70)
 end

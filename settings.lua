@@ -18,10 +18,9 @@ function SettingsClass:new()
     self.Player1Y = self.Border
     self.Player2Y = self.WindowHeight - self.Player2Height - self.Border
     self.PuckY = (self.WindowHeight / 2) - (self.PuckHeight / 2)
-    self.Player1Speed = 500
-    self.Player2Speed = 500
-    self.PuckXSpeed = 0
-    self.PuckYSpeed = 200
+    self.Player1Speed = 1000
+    self.Player2Speed = 1000
+    self.PuckSpeed = 500
     self.PuckAcc = 50
 
 end

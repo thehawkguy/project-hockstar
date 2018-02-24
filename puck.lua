@@ -5,10 +5,15 @@ function Puck:new(x, y, speed)
     -- body
     Puck.super.new(self, x, y, speed)
     self.image = Settings.PuckImage
-    self.direction = math.random(2)
-    self.angle = math.pi / 2
+    if flipCoin == 1 then
+        self.angle = math.pi / 2
+    else
+        self.angle = math.pi * 1.5
+    end
     self.sin = math.sin(self.angle)
     self.cos = math.cos(self.angle)
+    self.midX = self.x + (Settings.PuckWidth / 2)
+    self.midY = self.y + (Settings.PuckHeight / 2)
 
 end
 
@@ -19,6 +24,8 @@ function Puck:update(dt)
     -- else
     --     self.y = self.y - self.speed * dt
     -- end
+    self.sin = math.sin(self.angle)
+    self.cos = math.cos(self.angle)
 
     self.x = self.x + self.speed * self.cos * dt
     self.y = self.y + self.speed * self.sin * dt
@@ -44,9 +51,7 @@ function Puck:checkCollision(obj)
 
         self.speed = self.speed + Settings.PuckAcc
 
-        self.angle = math.atan2(self.y - obj.midY, self.x - obj.midX)
-        self.sin = math.sin(self.angle)
-        self.cos = math.cos(self.angle)
+        self.angle = math.atan2(self.midY - obj.midY, self.midX - obj.midX)
 
         -- if self.direction == 1 then
         --     self.direction = 2
@@ -54,5 +59,20 @@ function Puck:checkCollision(obj)
         --     self.direction = 1
         -- end
     end
+
+end
+
+function Puck:checkCollisionScreen()
+    -- body
+    local self_right = self.x + Settings.PuckWidth
+
+    if self.x <= 0 then
+        self.angle = math.atan2(0, self.midX)
+    end
+
+    if self_right >= Settings.WindowWidth then
+        self.angle = math.atan2(0, self.midX - Settings.WindowWidth)
+    end
+
 
 end
